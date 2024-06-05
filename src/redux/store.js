@@ -13,13 +13,17 @@ const initialState = {
     }
 }
 
+export const create = value => {
+    return {
+            type: "contact/add",
+            payload:{value}
+        }
+}
+
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case "contact/add":
-            
-            return {
-            }
         default:
             return state
     }
