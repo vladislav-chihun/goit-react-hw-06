@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function ContactForm({  contactSchema }) {
     const dispatch = useDispatch()
-    const value = useSelector(state => state.items)
 
-    const handlesSubmit = () => {
+    const handlesSubmit = (values, { resetForm }) => {
         dispatch({
             type: "contact/add",
-            payload:{value}
+            payload:{values}
         })
+        resetForm();
     }
 
     

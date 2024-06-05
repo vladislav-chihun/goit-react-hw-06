@@ -15,7 +15,14 @@ const initialState = {
 
 
 const rootReducer = (state = initialState, action) => {
-  return state;
+    switch (action.type) {
+        case "contact/add":
+            
+            return {
+            }
+        default:
+            return state
+    }
 };
 
 export const store = configureStore({
