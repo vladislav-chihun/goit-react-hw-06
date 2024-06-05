@@ -1,12 +1,22 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import css from "./ContactForm.module.css"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function ContactForm({ handleCreate, contactSchema }) {
-    useSelector()
+export default function ContactForm({  contactSchema }) {
+    const dispatch = useDispatch()
+    const value = useSelector(state => state.items)
+
+    const handlesSubmit = () => {
+        dispatch({
+            type: "contact/add",
+            payload:{value}
+        })
+    }
+
     
+
     return (
-        <Formik initialValues={{nameField:"",numberField:""}} validationSchema={contactSchema} onSubmit={handleCreate}>
+        <Formik initialValues={{nameField:"",numberField:""}} validationSchema={contactSchema} onSubmit={handlesSubmit}>
             <Form className={css.form}>
                 <div className={css.nameContainer}>
                     <label htmlFor="nameField">Name</label>
