@@ -14,9 +14,12 @@ export const initialState = {
 }
 
 export const createContact = createAction("contact/add")
+export const deleteContact = createAction("contact/delete")
 
 export const contactReducer = createReducer(initialState.contacts, (builder) => {
     builder.addCase(createContact, (state, action) => {
         state.items.push(action.payload)
-    })
+    }).addCase(deleteContact, (state, action) => {
+            state.items = state.items.filter(contact => contact.id !== action.payload.id);
+        });
 })
