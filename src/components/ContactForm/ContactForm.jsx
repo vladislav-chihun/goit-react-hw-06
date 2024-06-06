@@ -1,10 +1,17 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import css from "./ContactForm.module.css"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import {createContact} from "../../redux/contactsSlice"
 import { nanoid } from "nanoid";
+import * as yup from 'yup';
 
-export default function ContactForm({  contactSchema }) {
+const contactSchema = yup.object().shape({
+  nameField: yup.string().min(3, "Too short!").max(50, "Too long!").required("Required"),
+  numberField: yup.string().min(3, "Too short!").max(50, "Too long!").required("Required"),
+});
+
+export default function ContactForm() {
+    
     const dispatch = useDispatch()
 
     const handleSubmit = (values, { resetForm }) => {

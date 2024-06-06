@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { updateFilter } from "../../redux/filtersSlice";
 
-export default function SearchBox({ handleSearch }) {
+export default function SearchBox() {
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
