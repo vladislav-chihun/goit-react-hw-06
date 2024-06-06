@@ -1,7 +1,13 @@
+import { useDispatch } from "react-redux";
+import { updateFilter } from "../../redux/filtersSlice";
+
 export default function SearchBox({ handleSearch }) {
+    const dispatch = useDispatch();
+
     const handleChange = (event) => {
-        handleSearch(event.currentTarget.value)
-    }
+        dispatch(updateFilter(event.currentTarget.value));
+    };
+    
     return (
         <>
             <p>Find contacts by name</p>

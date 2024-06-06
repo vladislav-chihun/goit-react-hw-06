@@ -5,13 +5,19 @@ import css from "./ContactList.module.css"
 export default function ContactList() {
     const dispatch = useDispatch();
     const contacts = useSelector(state => state.contacts.items);
+    const filter = useSelector(state => state.filters.name);
+
+    const filteredContacts = contacts.filter(contact => 
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
 
     const handleDelete = (id) => {
         dispatch(deleteContact({ id }));
     };
+
     return (
        <div className={css.contactsList}>
-            {contacts.map((contact) => (
+            {filteredContacts.map((contact) => (
                 <Contact
                     key={contact.id}
                     id={contact.id}
