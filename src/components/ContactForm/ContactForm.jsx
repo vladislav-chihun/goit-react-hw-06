@@ -1,48 +1,38 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import css from "./ContactForm.module.css"
-import { useDispatch} from "react-redux";
-import {createContact} from "../../redux/contactsSlice"
+import css from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { createContact } from "../../redux/contactsSlice";
 import { nanoid } from "nanoid";
-import * as yup from 'yup';
 
-const contactSchema = yup.object().shape({
-  nameField: yup.string().min(3, "Too short!").max(50, "Too long!").required("Required"),
-  numberField: yup.string().min(3, "Too short!").max(50, "Too long!").required("Required"),
-});
-
-export default function ContactForm() {
-    
-    const dispatch = useDispatch()
+export default function ContactForm({ contactSchema }) {
+    const dispatch = useDispatch();
 
     const handleSubmit = (values, { resetForm }) => {
         const id = nanoid();
         const newContact = {
-            id: id,
+            id,
             name: values.nameField,
-            number: values.numberField
+            number: values.numberField,
         };
-        dispatch(createContact(newContact))
+        dispatch(createContact(newContact));
         resetForm();
-    }
-
-    
+    };
 
     return (
-        <Formik initialValues={{nameField:"",numberField:""}} validationSchema={contactSchema} onSubmit={handleSubmit}>
+        <Formik initialValues={{ nameField: "", numberField: "" }} validationSchema={contactSchema} onSubmit={handleSubmit}>
             <Form className={css.form}>
                 <div className={css.nameContainer}>
                     <label htmlFor="nameField">Name</label>
-                    <Field type="text" name="nameField" id="nameField"></Field>
+                    <Field type="text" name="nameField" id="nameField" />
                     <ErrorMessage name="nameField" component="div" className={css.errorMessage} />
                 </div>
                 <div className={css.numberContainer}>
                     <label htmlFor="numberField">Number</label>
-                    <Field type="text" name="numberField" id="numberField"></Field>
+                    <Field type="text" name="numberField" id="numberField" />
                     <ErrorMessage name="numberField" component="div" className={css.errorMessage} />
                 </div>
-                 
                 <button name="AddContactField" type="submit" className={css.btn}>Add contact</button>
             </Form>
         </Formik>
-    )
+    );
 }
